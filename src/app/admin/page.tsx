@@ -372,7 +372,7 @@ const DentalLabModule = () => {
   };
 
   const removeFile = (fileId: string) => {
-    setUploadedFiles(uploadedFiles.filter(file => file.id !== fileId));
+    setUploadedFiles(uploadedFiles);
   };
 
   const NewOrderForm = () => (
@@ -669,7 +669,7 @@ const DentalLabModule = () => {
             <textarea
               value={newOrder.notes}
               onChange={(e) => setNewOrder({...newOrder, notes: e.target.value})}
-              rows="4"
+              rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Include specific instructions, patient preferences, anatomical considerations, contact points, occlusal requirements, etc."
             />
@@ -850,7 +850,7 @@ const DentalLabModule = () => {
               <div className="space-y-4">
                 {orders
                   .filter(order => order.status !== 'Completed')
-                  .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+                  .sort((a, b) => Number(new Date(a.dueDate)) - Number(new Date(b.dueDate)))
                   .slice(0, 5)
                   .map((order) => (
                     <div key={order.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
